@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="웹데이터 검색해보자." />
+    <meta property="og:description" content="제 2의 다나와를 꿈꾸며.." />
+    <meta property="og:image" content="https://www.venetmeal.com/data/skin/front/moment_C/img/banner/01deef54d1ff5c3e4c6d786c50aa9f0c_79946.jpg" />
+
+    <title>상품 검색하기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#search").on("click", function() {
+                let keyword = $("#keyword").val();
+                $.ajax({
+                    type: "GET",
+                    url:"/prd_search_init?keyword="+keyword,
+                    data:{},
+                    success: function(response) {
+                        console.log(response.data)
+                    }
+                })
+            })
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>검색할 상품 넣기</h1>
+        <input type="text" name="keyword" id="keyword">
+        <button id="search" class="btn btn-primary btn-sm">싹다검색</button>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col">금액</th>
+                    <th scope="col">스토어</th>
+                </tr>
+            </thead>
+            <tbody id="btnList">
+                <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div>
+</html>
