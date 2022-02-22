@@ -1,4 +1,5 @@
-import requests, jsonify
+import requests, jsonify, json
+from collections import OrderedDict
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
@@ -21,6 +22,9 @@ def prd(keyword):
     interval = 2
     prev_height = browser.execute_script("return document.body.scrollHeight")
 
+    prd_data = OrderedDict()
+    prds_data = OrderedDict()
+
     # 반복 수행
     while True:
         # 스크롤을 가장 아래로 내림.
@@ -34,7 +38,7 @@ def prd(keyword):
         prev_height = curr_height
         soup = BeautifulSoup(browser.page_source, "lxml")
         lists = soup.find_all("li", attrs={"class": "basicList_item__2XT81"})
-
+        i = 0
         for list in lists:
             title = list.find("div", attrs={"class": "basicList_title__3P9Q7"}).get_text()
             price = list.find("span", attrs={"class": "price_num__2WUXn"}).get_text()
@@ -47,13 +51,15 @@ def prd(keyword):
 
             link = list.find("a", attrs={"class": "basicList_link__1MaTN"})["href"]
             # data = (title + "/t" + price + "/t" + store + "/t" + link).split("/t")
-
-            print(title, ",", price, ",", store, ",", link)
-
+            # print(title, ",", price, ",", store, ",", link)
             # file_data["title"] = title
             # file_data["price"] = price
             # file_data["store"] = store
             # file_data["link"] = link
-            file_data = [title, price, store, link]
+            # file_data = [title, price, store, link]
+            # return jsonify({'prd' : file_data})
 
-            return jsonify({'prd' : file_data})
+            i = i+1
+            prd_data[i] = [title, price, store, link]
+        prds_data["prd_data"] = prd_data
+    return json.dumps(prds_data, ensure_ascii=False, indent="\t")
