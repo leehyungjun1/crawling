@@ -50,10 +50,10 @@ def prd(keyword):
 
             print(title, ",", price, ",", store, ",", link)
 
-            file_data["title"] = title
-            file_data["price"] = price
-            file_data["store"] = store
-            file_data["link"] = link
+            # file_data["title"] = title
+            # file_data["price"] = price
+            # file_data["store"] = store
+            # file_data["link"] = link
             file_data = [title, price, store, link]
 
             return jsonify({'prd' : file_data})
